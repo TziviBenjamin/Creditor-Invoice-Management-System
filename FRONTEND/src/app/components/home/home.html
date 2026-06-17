@@ -1,0 +1,83 @@
+<div class="home-wrapper">
+
+  <nav class="navbar">
+    <div class="navbar-brand">Wohn<span>plus</span></div>
+    <div class="navbar-right">
+      <span class="username-badge" *ngIf="username">👤 {{ username }}</span>
+      <button class="back-btn" *ngIf="isAdmin" (click)="goToAdmin()">&#8592; ניהול</button>
+      <button class="logout-btn" (click)="logout()">התנתק</button>
+    </div>
+  </nav>
+
+  <div class="home-content">
+
+    <div *ngIf="error" class="error-banner">{{ error }}</div>
+
+    <div class="search-card">
+      <div class="search-title">🔍 חיפוש חשבוניות</div>
+      <div class="search-row">
+
+        <div class="search-field">
+          <label>נכס</label>
+          <select [(ngModel)]="filters.propertyId" name="property">
+            <option [ngValue]="undefined">כל הנכסים</option>
+            <option *ngFor="let p of properties" [ngValue]="p.id">{{ p.name }}</option>
+          </select>
+        </div>
+
+        <div class="search-field">
+          <label>שם ספק</label>
+          <input type="text" [(ngModel)]="filters.supplierName" placeholder="הכנס שם ספק" name="supplier" />
+        </div>
+
+        <div class="search-field">
+          <label>מתאריך</label>
+          <input type="date" [(ngModel)]="filters.fromDate" name="fromDate" />
+        </div>
+
+        <div class="search-field">
+          <label>עד תאריך</label>
+          <input type="date" [(ngModel)]="filters.toDate" name="toDate" />
+        </div>
+
+        <button class="search-btn" type="button" (click)="search()" [disabled]="loading">חפש</button>
+      </div>
+    </div>
+
+    <div class="results-card" *ngIf="invoices.length > 0">
+      <div class="results-header">
+        <span class="results-title">תוצאות</span>
+        <span class="results-count">{{ invoices.length }} חשבוניות</span>
+      </div>
+      <table class="invoices-table">
+        <thead>
+          <tr>
+            <th>מספר ספק</th>
+            <th>שם ספק</th>
+            <th>נכס</th>
+            <th>תאריך חשבונית</th>
+            <th>תאריך תשלום</th>
+            <th>קובץ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let inv of invoices" (click)="openPdf(inv)">
+            <td>{{ inv.krediNR }}</td>
+            <td>{{ inv.kreditor }}</td>
+            <td>{{ inv.propertyName }}</td>
+            <td>{{ inv.beleg_DatumFormat | date:'dd/MM/yyyy' }}</td>
+            <td>{{ inv.b_Valuta | date:'dd/MM/yyyy' }}</td>
+            <td><span class="pdf-link">📄 פתח PDF</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="status-area" *ngIf="loading || (!loading && invoices.length === 0)">
+      <p class="loading-text" *ngIf="loading">טוען נתונים...</p>
+      <p class="empty-text" *ngIf="!loading && invoices.length === 0 && searched">לא נמצאו חשבוניות</p>
+      <p class="empty-text" *ngIf="!loading && invoices.length === 0 && !searched">בצע חיפוש כדי להציג חשבוניות</p>
+    </div>
+
+  </div>
+</div>

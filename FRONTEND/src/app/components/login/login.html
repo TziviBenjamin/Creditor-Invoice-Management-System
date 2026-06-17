@@ -1,0 +1,29 @@
+<div class="login-wrapper">
+  <div class="login-side">
+    <div class="brand-logo">Wohn<span>plus</span></div>
+    <div class="brand-tagline">מערכת ניהול חשבוניות ספקים</div>
+  </div>
+
+  <div class="login-card-side">
+    <div class="card-title">ברוכים הבאים</div>
+    <div class="card-subtitle">התחברו כדי להמשיך למערכת</div>
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="username">שם משתמש</label>
+        <input id="username" type="text" placeholder="הכנס שם משתמש"
+               [(ngModel)]="username" name="username" required />
+      </div>
+
+      <div class="form-group">
+        <label for="password">סיסמה</label>
+        <input id="password" type="password" placeholder="הכנס סיסמה"
+               [(ngModel)]="password" name="password" required />
+      </div>
+
+      <button type="submit" class="login-btn">התחבר</button>
+
+      <div *ngIf="errorMessage" class="error-msg">{{ errorMessage }}</div>
+    </form>
+  </div>
+</div>

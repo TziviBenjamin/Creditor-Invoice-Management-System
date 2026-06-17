@@ -1,0 +1,89 @@
+<div class="admin-wrapper">
+
+  <nav class="navbar">
+    <div class="navbar-brand">Wohn<span>plus</span></div>
+    <span class="navbar-tag">🛡️ ממשק מנהל</span>
+    <button class="back-btn" (click)="goBack()">&#8594; חזרה</button>
+  </nav>
+
+  <div class="admin-content">
+
+    <div class="page-title">ניהול מערכת</div>
+
+    <div class="success-banner" *ngIf="message">{{ message }}</div>
+
+    <!-- Add User -->
+    <div class="card">
+      <div class="card-title">➕ יצירת משתמש חדש</div>
+      <form (ngSubmit)="addUser()" autocomplete="off">
+        <div class="form-row">
+          <div class="form-field">
+            <label>שם משתמש</label>
+            <input autocomplete="new-username" placeholder="הכנס שם משתמש"
+                   [(ngModel)]="newUser.username" name="newUsername" required />
+          </div>
+          <div class="form-field">
+            <label>סיסמה</label>
+            <input autocomplete="new-password" type="password" placeholder="הכנס סיסמה"
+                   [(ngModel)]="newUser.password" name="newPassword" required />
+          </div>
+          <button type="submit" class="action-btn">צור משתמש</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Assign Property -->
+    <div class="card">
+      <div class="card-title">🔗 שיוך נכס למשתמש</div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>משתמש</label>
+          <select [(ngModel)]="selectedUserId" name="selectedUserId">
+            <option [ngValue]="null" disabled selected>בחר משתמש</option>
+            <option *ngFor="let user of users" [ngValue]="user.id">{{ user.username }}</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>נכס</label>
+          <select [(ngModel)]="selectedPropertyId" name="selectedPropertyId">
+            <option [ngValue]="null" disabled selected>בחר נכס</option>
+            <option *ngFor="let prop of properties" [ngValue]="prop.id">{{ prop.name }}</option>
+          </select>
+        </div>
+        <button type="button" class="action-btn" (click)="assignProperty()">שייך</button>
+      </div>
+    </div>
+
+    <!-- Users & Properties Table -->
+    <div class="card">
+      <div class="card-title">👥 משתמשים ונכסים משויכים</div>
+      <table class="users-table">
+        <thead>
+          <tr>
+            <th>שם משתמש</th>
+            <th>נכסים משויכים</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{ user.username }}</td>
+            <td>
+              <div class="chips-wrap" *ngIf="user.properties?.length; else noProps">
+                <span class="chip" *ngFor="let prop of user.properties">
+                  {{ prop.name }}
+                  <button type="button" class="chip-remove"
+                          aria-label="הסר נכס"
+                          (click)="removeProperty(user, prop)">×</button>
+                </span>
+              </div>
+              <ng-template #noProps>
+                <span class="no-props">אין נכסים משויכים</span>
+              </ng-template>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

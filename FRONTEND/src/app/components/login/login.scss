@@ -1,0 +1,137 @@
+.login-wrapper {
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a237e 0%, #283593 50%, #1565c0 100%);
+}
+
+.login-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  color: white;
+
+  .brand-logo {
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 0.5rem;
+
+    span {
+      color: #90caf9;
+    }
+  }
+
+  .brand-tagline {
+    font-size: 1.1rem;
+    font-weight: 300;
+    opacity: 0.8;
+  }
+}
+
+.login-card-side {
+  width: 460px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 3.5rem;
+  box-shadow: -8px 0 40px rgba(0, 0, 0, 0.15);
+
+  .card-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1a237e;
+    margin-bottom: 0.4rem;
+  }
+
+  .card-subtitle {
+    font-size: 0.95rem;
+    color: #888;
+    margin-bottom: 2.5rem;
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+
+  label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #444;
+    text-align: right;
+  }
+
+  input {
+    padding: 0.75rem 1rem;
+    border: 1.5px solid #dde3f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    direction: rtl;
+
+    &:focus {
+      border-color: #1a237e;
+      box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.1);
+    }
+  }
+}
+
+.login-btn {
+  width: 100%;
+  padding: 0.85rem;
+  background: linear-gradient(135deg, #1a237e, #1565c0);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  letter-spacing: 0.3px;
+
+  &:hover {
+    background: linear-gradient(135deg, #283593, #1976d2);
+    box-shadow: 0 4px 15px rgba(26, 35, 126, 0.35);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.error-msg {
+  margin-top: 1rem;
+  background: #fff3f3;
+  color: #c62828;
+  border: 1px solid #ffcdd2;
+  border-radius: 8px;
+  padding: 0.65rem 1rem;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .login-wrapper {
+    flex-direction: column;
+  }
+
+  .login-side {
+    padding: 2rem;
+    flex: none;
+
+    .brand-logo { font-size: 2.5rem; }
+  }
+
+  .login-card-side {
+    width: 100%;
+    padding: 2.5rem 1.75rem;
+    box-shadow: none;
+  }
+}

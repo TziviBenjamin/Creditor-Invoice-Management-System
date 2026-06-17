@@ -1,0 +1,13 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+
+# Angular
+node_modules/
+.angular/
+
+# Environment
+appsettings.Development.json
